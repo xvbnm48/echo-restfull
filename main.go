@@ -1,12 +1,15 @@
 package main
 
 import (
-	"github.com/xvbnm48/echo-restfull/db"
-	"github.com/xvbnm48/echo-restfull/routes"
+	"github.com/labstack/echo/v4"
 )
 
 func main() {
-	db.Init() // Initialize database
-	e := routes.Init()
-	e.Logger.Fatal(e.Start(":1233"))
+	e := echo.New()
+
+	e.GET("/", func(c echo.Context) error {
+		return c.JSON(200, map[string]string{"message": "Hello World"})
+	})
+
+	e.Logger.Fatal(e.Start(":1323"))
 }

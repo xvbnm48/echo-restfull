@@ -1,7 +1,0 @@
-{
-    "DB_USERNAME" : "root",
-    "DB_PASSWORD" : "",
-    "DB_NAME" : "echo_rest",
-    "DB_HOST" : "localhost",
-    "DB_PORT" : "3306"
-}
