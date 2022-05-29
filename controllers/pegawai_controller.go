@@ -1,0 +1,40 @@
+package controllers
+
+import (
+	"net/http"
+
+	"github.com/labstack/echo/v4"
+	"github.com/xvbnm48/echo-restfull/models"
+)
+
+func FetchAllPegawai(c echo.Context) error {
+	result, err := models.FetchAllPegawai()
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{
+			"msg": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, result)
+}
+
+func StorePegawai(c echo.Context) error {
+	// nama := c.FormValue("nama")
+	// alamat := c.FormValue("alamat")
+	// telepon := c.FormValue("telepon")
+	p := &models.Pegawai{}
+	if err := c.Bind(p); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{
+			"msg": err.Error(),
+		})
+	}
+
+	result, err := models.StorePegawai(p.Nama, p.Alamat, p.Telepon)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{
+			"msg": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, result)
+}
