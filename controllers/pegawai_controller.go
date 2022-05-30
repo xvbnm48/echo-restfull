@@ -64,3 +64,29 @@ func UpdatePegawai(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, result)
 }
+
+func DeletePegawai(c echo.Context) error {
+	id := c.Param("id")
+	p := &models.Pegawai{}
+	if err := c.Bind(p); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{
+			"msg": err.Error(),
+		})
+	}
+
+	conv_id, err := strconv.Atoi(id)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, map[string]string{
+			"msg": err.Error(),
+		})
+	}
+
+	result, err := models.DeletePegawai(conv_id)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, map[string]string{
+			"msg": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, result)
+}
